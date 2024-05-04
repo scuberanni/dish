@@ -1,0 +1,191 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+<style>
+    .dataTables_paginate .paginate_button {
+        padding: .375rem 1.2rem;
+        margin-bottom: 0;
+        font-size: .875rem;
+        line-height: 1.5;
+        color: #007bff;
+        background-color: transparent;
+    }
+    
+    .dataTables_paginate .paginate_button.disabled {
+        color: #6c757d;
+        pointer-events: none;
+        background-color: transparent;
+    }
+    @media (max-width: 767px) {
+    .table-container {
+        overflow-x: auto;
+    }
+}
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="onlypc1 pt-3 ">
+            <div class="bg-warning p-2 border border-5 rounded-4 border-primary onlypc1">
+                <h2 class="text-white px-4 p-2 ">ALL Box Details</h2>
+                <div class="container-fluid">
+                    <div class="row px-3 p-0">
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Panna Box:</h6>
+                        <div id="totalCount" style="margin-right: 50px;height:50px;"
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
+                        </div>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Navya Box:</h6>
+                        <div id="totalCount1" style="margin-right: 50px;height:50px;"
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
+                        </div>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Others:</h6>
+                        <div id="totalCount2" style="margin-right: 50px;height:50px;"
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
+                        </div>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">All Boxes:</h6>
+                        <div id="totalCount3" style="margin-right: 50px;height:50px;"
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
+                        </div>
+                    </div>
+                </div>
+                <div class="row px-3">
+                    <div class="px-4 pt-0 col-12">
+                        <!-- Search inputs -->
+                        <input type="text" id="searchInput" style="height: 0px;width: 100%;">
+                    </div>
+                    
+                </div>
+                <div class="p-2 table-container">
+                    <div class="p-2">
+                        <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="bg-success">
+                                    <th class="text-center">Sl No</th>
+                                    <th class="text-center">Retailer Name</th>
+                                    <th class="text-center">Box Name</th>
+                                    <th class="text-center">Box Sl No</th>
+                                    <th class="text-center">VSC No</th>
+                                    <th class="text-center">Edt/Dlt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product1 in products1 %}
+                                <tr style="background-color: rgb(159, 255, 150);">
+                                    <td class="text-center">{{ forloop.counter0|add:1 }}</td>
+                                    <td class="">{{product1.r_name |upper}}</td>
+                                    <td class="boxName">{{product1.b_name |upper}}</td>
+                                    <td class="text-center">{{product1.b_slno |upper}}</td>
+                                    <td class="text-center vscNo">{{product1.b_vscno |upper}}</td>
+                                    <td class="text-center">
+                                        <a href="{% url 'woc' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-dark"><i class="fa-solid fa-calendar-xmark"></i></button></a>
+                                        <a href="{% url 'box_details_edit' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a href="{% url 'box_details_delete' product1.id %}"> <button style="height: 35px;width: 35px;padding-left: 10px;" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("example");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4]; // index 4 corresponds to the fifth column (VSC No)
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+        
+        function countOccurrences(columnIndex, value) {
+            var table = document.getElementById("example");
+            var tr = table.getElementsByTagName("tr");
+            var count = 0;
+
+            for (var i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td")[columnIndex];
+                if (td) {
+                    var txtValue = td.textContent || td.innerText;
+                    if (txtValue.trim().toUpperCase() === value.trim().toUpperCase()) {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+        function countOccurrences1() {
+            var table = document.getElementById("example");
+            var tr = table.getElementsByTagName("tr");
+            var count = 0;
+
+            for (var i = 0; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td")[2]; // Index 2 corresponds to the third column
+                if (td) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        // Example usage:
+        var totalCount = countOccurrences(2, "Panna Box");
+        var totalCount1 = countOccurrences(2, "Navya Box");
+        var totalCount3 = countOccurrences1();
+
+        // Update the total count in the HTML
+        document.getElementById("totalCount").innerText = "" + totalCount;
+        document.getElementById("totalCount1").innerText = "" + totalCount1; // Update the HTML element with the count
+        document.getElementById("totalCount2").innerText = "" + totalCount3 - totalCount - totalCount1; 
+        document.getElementById("totalCount3").innerText = "" + totalCount3; 
+
+        $(document).ready( function () {
+            // DataTable initialization with custom options
+            $('#example').DataTable({
+                "paging": true,
+                "pageLength": 15, // Show 15 rows per page
+                "language": {
+                    "lengthMenu": "Show _MENU_ entries", // Custom text for "Show X entries" 
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries", // Custom text for table info
+                     // Remove the default search text
+                    "paginate": {
+                        "previous": "Prv", // Custom text for Previous button
+                        "next": "Nxt" // Custom text for Next button
+                    }
+                }
+            });
+        });
+    </script>
+
+    {% endblock %}
