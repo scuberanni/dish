@@ -44,11 +44,11 @@
                 <h2 class="text-white px-4 p-2 ">ALL Box Details</h2>
                 <div class="container-fluid">
                     <div class="row px-3 p-0">
-                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Panna Box:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">VCH2090S:</h6>
                         <div id="totalCount" style="margin-right: 50px;height:50px;"
                             class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
-                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Navya Box:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">DV5710HD:</h6>
                         <div id="totalCount1" style="margin-right: 50px;height:50px;"
                             class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
@@ -79,6 +79,7 @@
                                     <th class="text-center">Box Name</th>
                                     <th class="text-center">Box Sl No</th>
                                     <th class="text-center">VSC No</th>
+                                    <th class="text-center">Date</th>
                                     <th class="text-center">Edt/Dlt</th>
                                 </tr>
                             </thead>
@@ -90,6 +91,7 @@
                                     <td class="boxName">{{product1.b_name |upper}}</td>
                                     <td class="text-center">{{product1.b_slno |upper}}</td>
                                     <td class="text-center vscNo">{{product1.b_vscno |upper}}</td>
+                                    <td class="text-center vscNo">{{product1.collect_date |upper}}</td>
                                     <td class="text-center">
                                         <a href="{% url 'woc' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-dark"><i class="fa-solid fa-calendar-xmark"></i></button></a>
                                         <a href="{% url 'box_details_edit' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button></a>
@@ -160,8 +162,8 @@
         }
 
         // Example usage:
-        var totalCount = countOccurrences(2, "Panna Box");
-        var totalCount1 = countOccurrences(2, "Navya Box");
+        var totalCount = countOccurrences(2, "VCH2090S");
+        var totalCount1 = countOccurrences(2, "DV5710HD");
         var totalCount3 = countOccurrences1();
 
         // Update the total count in the HTML

@@ -44,9 +44,21 @@
                             <div class="col-9 col-md-11">
                                 {{ form.b_vscno }}
                             </div>
-
-                            <div class="col-6 col-md-6 pt-3">
-                                <input type="submit" class="btn-primary" value="Edit Details">
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="Date of Collecting">Date:</label>
+                            </div>
+                            <div class="col-9 col-md-2">
+                                {{ form.collect_date }}
+                            </div>
+                            <div class="col-9 col-md-9">
+                                
+                            </div>
+                            
+                            
+                            <div class="col-6 col-md-12 pt-3">
+                                <div class="col-6 col-md-3"></div>
+                                <input type="submit" class="btn-primary col-6 col-md-3" value="Edit Details">
                             </div>
 
                         </div>

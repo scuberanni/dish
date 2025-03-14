@@ -136,6 +136,7 @@
                                 <th class="text-center">Box Name</th>
                                 <th class="text-center">Box Sl No</th>
                                 <th class="text-center">VSC No</th>
+                                <th class="text-center">DATE</th>
                                 <th class="text-center">Edt/Dlt</th>
                             </tr>
                         </thead>
@@ -146,6 +147,7 @@
                                 <td class="">{{product1.b_name |upper}}</td>
                                 <td class="text-center">{{product1.b_slno |upper}}</td>
                                 <td class="text-center">{{product1.b_vscno |upper}}</td>
+                                <td class="text-center">{{product1.collect_date |upper}}</td>
                                 <td class="text-center">
                                     <a href="{% url 'woc' product1.id %}"> <button
                                         style="height: 35px;width: 35px; padding-left: 10px;"

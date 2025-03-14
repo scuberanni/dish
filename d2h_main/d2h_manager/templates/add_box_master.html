@@ -8,42 +8,51 @@
             <form id="myForm" method="post">
                 {% csrf_token %}
                 {{ formset.management_form }}
-                
+
                 {% for form in formset %}
                     <div class="row mb-12">
                         <div class="col-6 col-md-2">
-                            <h6 style="color: rgb(0, 0, 0);">Retailer Name</h6>
+                            <h6 class="text-white">Retailer Name</h6>
                             {{ form.r_name }}
                             {% for error in form.r_name.errors %}
                                 <span class="text-danger">{{ error }}</span>
                             {% endfor %}
                         </div>
-                        
+
                         <div class="col-6 col-md-2">
-                            <h6 style="color: rgb(0, 0, 0);">SL NO</h6>
+                            <h6 class="text-white">SL NO</h6>
                             {{ form.b_slno }}
                             {% for error in form.b_slno.errors %}
                                 <span class="text-danger">{{ error }}</span>
                             {% endfor %}
                         </div>
-                        <div class="col-6 col-md-2" style="padding-left: 20px;">
-                            <div>
-                                <h6 style="color: rgb(0, 0, 0);">VSC NO</h6>
-                                {{ form.b_vscno }}
-                                {% for error in form.b_vscno.errors %}
-                                    <span class="text-danger">{{ error }}</span>
-                                {% endfor %}
-                            </div>
+
+                        <div class="col-6 col-md-2">
+                            <h6 class="text-white">VSC NO</h6>
+                            {{ form.b_vscno }}
+                            {% for error in form.b_vscno.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
                         </div>
-                        <div class="col-6 col-md-4">
-                            <h6 style="color: rgb(0, 0, 0);">Box Type</h6>
+
+                        <div class="col-6 col-md-2">
+                            <h6 class="text-white">Box Type</h6>
                             {{ form.b_name }}
                             {% for error in form.b_name.errors %}
                                 <span class="text-danger">{{ error }}</span>
                             {% endfor %}
                         </div>
+
+                        <div class="col-6 col-md-2">
+                            <h6 class="text-white">Date of Collecting</h6>
+                            {{ form.collect_date }}
+                            {% for error in form.collect_date.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endfor %}
+
                 <div class="pt-2">
                     <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
                 </div>

@@ -126,31 +126,35 @@ def bo_master(request):
     return render(request,'pr_master.html',{'frm':frm})
 
 def add_box_master(request):
-    BoxMasterFormSet = formset_factory(BoxProductForm, extra=10)
+    BoxMasterFormSet = formset_factory(BoxProductForm2, extra=10)  # Use updated form with collect_date
+
     if request.method == 'POST':
         formset = BoxMasterFormSet(request.POST)
         if formset.is_valid():
             for form in formset:
                 if form.cleaned_data.get('b_name'):
-                    # Create a new box master instance
-                    box_master_instance = form.save()
+                    box_product_instance = form.save(commit=False)
+                    box_product_instance.collect_date = form.cleaned_data.get('collect_date')  # Ensure new date is saved
+                    box_product_instance.save()
 
                     # Increment box2 for the corresponding retailer
-                    retailer_name = box_master_instance.r_name
+                    retailer_name = box_product_instance.r_name
                     try:
                         to_ret_product_instance = to_ret_product.objects.get(retailer=retailer_name)
                         to_ret_product_instance.box2 += 1
                         to_ret_product_instance.save()
                     except to_ret_product.DoesNotExist:
-                        return redirect('add_box_master')    
+                        return redirect('add_box_master')
+
                     messages.success(request, "Box master added successfully.")
                 else:
                     messages.error(request, "No existing product found.")
-            return redirect('add_box_master')  # Redirect to the same page after saving
+            return redirect('add_box_master')
         else:
             messages.error(request, "Formset is not valid.")
     else:
         formset = BoxMasterFormSet()
+
     return render(request, 'add_box_master.html', {'formset': formset})
 
 def box_details_edit(request, pk):

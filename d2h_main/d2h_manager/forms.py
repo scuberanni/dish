@@ -65,14 +65,20 @@ class BoxProductForm(ModelForm):
         
 class BoxProductForm2(ModelForm):
     r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
+    collect_date = forms.DateField(
+        required=False, 
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+    )
+
     class Meta:
         model = box_product
-        fields = ['r_name','b_name', 'b_slno', 'b_vscno']
+        fields = ['r_name', 'b_name', 'b_slno', 'b_vscno', 'collect_date']
         labels = {
             'r_name': 'Custom Label for Field 1',
             'b_name': 'Custom Label for Field 2',
             'b_slno': 'Custom Label for Field 3',
             'b_vscno': 'Custom Label for Field 4',
+            'collect_date': 'Date of Collecting',
         }
 
 class adjust_form(ModelForm):
